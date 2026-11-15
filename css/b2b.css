@@ -302,3 +302,8 @@ button{font:inherit}
 @media (max-width:61.99rem){.sticky-cta{right:calc(var(--gut) + 4rem)}}
 .qform.is-quick .qform__count{visibility:hidden}
 @media (max-width:61.99rem){.wa-float{transform:translateY(180%);transition:transform .45s var(--ease)}.wa-float.is-on{transform:none}}
+
+/* Photo gallery replacing the fictional review cards. */
+.reviews--portraits{gap:1.25rem}
+.review--portrait{padding:.55rem;overflow:hidden}
+.review__portrait{display:block;width:100%;height:auto;aspect-ratio:3 / 4;object-fit:cover;border-radius:3px}
