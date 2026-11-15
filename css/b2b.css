@@ -68,9 +68,9 @@ button{font:inherit}
 .callout{background:var(--earth-deep);color:var(--on-dark-soft);font-size:.82rem;text-align:center;padding:.55rem var(--gut);line-height:1.4}
 .callout strong{color:var(--linen);font-weight:600}
 .top{background:var(--forest);color:var(--linen)}
-.top__in{display:flex;align-items:center;justify-content:space-between;height:4rem}
-.logo{display:block;width:8.2rem}
-@media (min-width:62rem){.top__in{height:5rem}.logo{width:9.8rem}}
+.top__in{display:flex;align-items:center;justify-content:space-between;height:3.4rem}
+.logo{display:block;width:7.2rem}
+@media (min-width:62rem){.top__in{height:4rem}.logo{width:8.4rem}}
 
 /* Hero */
 .hero{position:relative;background:var(--forest);color:var(--on-dark);padding:1.75rem 0 3.5rem;overflow:hidden}
