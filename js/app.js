@@ -110,7 +110,10 @@
     var step = steps[cur];
     if (!valid(step)) { shake(step); return; }
     if (!started) { started = true; track("StartApplication", {}, true); }
-    if (cur === 0 && form.elements.business_type.value === "personal_use") { endScreen("#done-personal"); return; }
+    if (cur === 0) {
+      var types = $$("input[name=business_type]:checked", form).map(function (c) { return c.value; });
+      if (types.length === 1 && types[0] === "personal_use") { endScreen("#done-personal"); return; }
+    }
     if (cur < total - 1) show(cur + 1, true);
   }
 
@@ -158,8 +161,9 @@
   /* ---------- Lead score (A = call first) ---------- */
   function score(d) {
     var s = 0;
-    s += ({ distributor_importer: 30, wholesaler_garden_retail: 30, substrate_producer: 30, packer_retail_supplier: 25, shop_online_seller: 15, commercial_grower: 10 })[d.business_type] || 0;
-    s += ({ trial_first: 5, "1_10t": 10, "10_50t": 20, "50_200t": 30, "200t_plus": 35 })[d.volume_year1] || 0;
+    var bt = { distributor_importer: 30, wholesaler_garden_retail: 30, substrate_producer: 30, packer_retail_supplier: 25, shop_online_seller: 15, commercial_grower: 10 };
+    s += String(d.business_type || "").split(", ").reduce(function (m, v) { return Math.max(m, bt[v] || 0); }, 0);
+    s += ({ trial_first: 5, "0_1t": 5, "1_10t": 10, "10_50t": 20, "50_200t": 30, "200t_plus": 35 })[d.volume_year1] || 0;
     s += ({ under_500k: 5, "500k_2m": 12, "2m_10m": 20, "10m_plus": 25, prefer_not: 5 })[d.turnover] || 0;
     s += ({ within_1_month: 10, "1_3_months": 8, next_season: 5, exploring: 0 })[d.timeline] || 0;
     if (d.website) s += 5;
