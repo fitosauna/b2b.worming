@@ -37,7 +37,7 @@ Until they are set, the workflow skips the deploy. GitHub Pages preview: https:/
 - Partner starter kit: product photos, application guides by crop, 5 free sample bags for the partner's customers
 - Price list within 24 hours on working days
 - Launch offer (see above)
-- Exit-intent offer (shown once per visitor when they try to leave): first pallet free, product and delivery, one per company. Applications that accepted it arrive with "FREE FIRST SHIPMENT" in the email subject.
+- Exit popup (shown once per visitor when they try to leave): asks for an email to send product details and a tailored wholesale offer. These arrive with the subject "Wholesale offer request (exit popup)".
 
 ## Quick path
 "In a hurry? Just send me the price list" skips straight to the contact step and asks only for company and email. These arrive with `Request type: Quick price-list request` and tier `Quick`.

@@ -275,7 +275,7 @@
   }
 
   var labels = {
-    path: "Request type", free_first_shipment: "Free first shipment offer", business_type: "Business type", phone_country: "Phone country", use: "Use",
+    path: "Request type", business_type: "Business type", phone_country: "Phone country", use: "Use",
     volume_year1: "First-year volume", turnover: "Turnover", timeline: "Start", first_name: "First name",
     last_name: "Last name", company: "Company", email: "Email", phone: "Phone / WhatsApp", website: "Website",
     wants_sample: "Free sample", launch_offer: "Launch offer", first_visit: "First visit", offer_deadline: "Offer deadline", lead_tier: "Lead tier", lead_score: "Lead score", utm_source: "utm_source",
@@ -286,33 +286,13 @@
   }
 
   var errEl = $(".q__error", form);
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    var step = steps[cur];
-    if (pos !== order.length - 1) { next(); return; }
-    if (!valid(step)) { shake(step); return; }
-    if (form.elements.company_url.value) return; // bot
-    var d = collect();
-    var subject = (d.free_first_shipment ? "FREE FIRST SHIPMENT · " : "") + "Partner application [" + d.lead_tier + "]: " + d.company + (d.phone_country ? " (" + d.phone_country + ")" : "");
-    var btn = $("button[type=submit]", form);
 
-    function success() {
-      submitted = true;
-      track("Lead", { content_name: "partner_application", lead_tier: d.lead_tier });
-      $("[data-name]").textContent = d.first_name ? ", " + d.first_name : "";
-      endScreen("#done-thanks");
-    }
-
-    if (!C.formEndpoint) {
-      // No form service yet: open a pre-filled email so the application is not lost.
-      $(".done__fallback").hidden = false;
-      location.href = "mailto:" + C.email + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(asText(d));
-      success();
-      return;
-    }
-
-    btn.disabled = true; btn.classList.add("is-busy");
-    errEl.hidden = true;
+  // Sends a lead to the form service (or opens a pre-filled email if none is set).
+  // cb(ok, usedEmailFallback)
+  function sendLead(d, subject, errBox, cb) {
+    var mail = "mailto:" + C.email + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(asText(d));
+    if (!C.formEndpoint) { location.href = mail; cb(true, true); return; }
+    errBox.hidden = true;
     var payload = Object.assign({ _subject: subject, subject: subject }, d);
     if (C.web3formsKey) payload.access_key = C.web3formsKey;
     fetch(C.formEndpoint, {
@@ -321,12 +301,41 @@
       body: JSON.stringify(payload)
     }).then(function (r) {
       if (!r.ok) throw new Error("HTTP " + r.status);
-      success();
+      cb(true, false);
     }).catch(function () {
-      errEl.innerHTML = "Something went wrong sending your application. Please <a href=\"mailto:" + C.email +
-        "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(asText(d)) + "\">send it by email</a> instead.";
-      errEl.hidden = false;
-    }).then(function () { btn.disabled = false; btn.classList.remove("is-busy"); });
+      errBox.innerHTML = "Something went wrong. Please <a href=\"" + mail + "\">send it by email</a> instead.";
+      errBox.hidden = false;
+      cb(false, false);
+    });
+  }
+
+  function tracking() {
+    var o = {};
+    ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "fbclid", "landing_url"].forEach(function (k) {
+      if (form.elements[k] && form.elements[k].value) o[k] = form.elements[k].value;
+    });
+    return o;
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var step = steps[cur];
+    if (pos !== order.length - 1) { next(); return; }
+    if (!valid(step)) { shake(step); return; }
+    if (form.elements.company_url.value) return; // bot
+    var d = collect();
+    var subject = "Partner application [" + d.lead_tier + "]: " + d.company + (d.phone_country ? " (" + d.phone_country + ")" : "");
+    var btn = $("button[type=submit]", form);
+    btn.disabled = true; btn.classList.add("is-busy");
+    sendLead(d, subject, errEl, function (ok, fallback) {
+      btn.disabled = false; btn.classList.remove("is-busy");
+      if (!ok) return;
+      submitted = true;
+      track("Lead", { content_name: "partner_application", lead_tier: d.lead_tier });
+      if (fallback) $("#done-thanks .done__fallback").hidden = false;
+      $("[data-name]").textContent = d.first_name ? ", " + d.first_name : "";
+      endScreen("#done-thanks");
+    });
   });
 
   show(0, false);
@@ -341,7 +350,7 @@
     window.addEventListener("scroll", function () { past = window.scrollY > window.innerHeight * 0.8; upd(); }, { passive: true });
   }
 
-  /* ---------- Exit intent: free first shipment ---------- */
+  /* ---------- Exit intent: email for product details and wholesale offer ---------- */
   var exitBox = $("#exit");
   var submitted = false;
   function seen() { try { return localStorage.getItem("wm_exit_seen") === "1"; } catch (e) { return false; } }
@@ -350,7 +359,7 @@
     try { localStorage.setItem("wm_exit_seen", "1"); } catch (e) {}
     exitBox.hidden = false;
     document.body.style.overflow = "hidden";
-    setTimeout(function () { var b = $("[data-exit-go]", exitBox); if (b) b.focus(); }, 50);
+    setTimeout(function () { var i = $("#exit-form input[name=email]"); if (i && window.matchMedia("(pointer:fine)").matches) i.focus(); }, 50);
     track("ExitOfferShown", {}, true);
   }
   function closeExit() { if (!exitBox) return; exitBox.hidden = true; document.body.style.overflow = ""; }
@@ -372,15 +381,27 @@
     $$("[data-exit-close]", exitBox).forEach(function (b) { b.addEventListener("click", closeExit); });
     exitBox.addEventListener("click", function (e) { if (e.target === exitBox) closeExit(); });
     document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !exitBox.hidden) closeExit(); });
-    $("[data-exit-go]", exitBox).addEventListener("click", function () {
-      closeExit();
-      form.elements.free_first_shipment.value = "yes";
-      $("[data-exit-note]", form).hidden = false;
-      $$(".done").forEach(function (d) { d.hidden = true; });
-      form.hidden = false;
-      setQuick(true); show(0, true);
-      track("ExitOfferAccepted", {}, true);
-      setTimeout(function () { form.elements.company.focus({ preventScroll: true }); }, 400);
+    var exitForm = $("#exit-form");
+    exitForm.elements.email.addEventListener("input", function () { exitForm.querySelector(".field").classList.remove("is-bad"); });
+    exitForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var em = exitForm.elements.email;
+      var good = em.checkValidity() && em.value.trim() !== "";
+      em.closest(".field").classList.toggle("is-bad", !good);
+      if (!good) { exitForm.classList.remove("shake"); void exitForm.offsetWidth; exitForm.classList.add("shake"); return; }
+      var d = Object.assign({ path: "Exit popup: product details and wholesale offer", email: em.value.trim(), lead_tier: "Exit" }, tracking());
+      if (offerOn && C.offerLabel) d.launch_offer = C.offerLabel;
+      var btn = $("button[type=submit]", exitForm);
+      btn.disabled = true;
+      sendLead(d, "Wholesale offer request (exit popup): " + d.email, $(".q__error", exitForm), function (ok, fallback) {
+        btn.disabled = false;
+        if (!ok) return;
+        submitted = true;
+        track("Lead", { content_name: "exit_popup" });
+        exitForm.hidden = true;
+        var dn = $(".exit__done", exitBox); dn.hidden = false;
+        if (fallback) $(".done__fallback", dn).hidden = false;
+      });
     });
   }
 })();
