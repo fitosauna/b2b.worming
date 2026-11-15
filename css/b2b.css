@@ -222,6 +222,9 @@ button{font:inherit}
 .review__who{display:flex;align-items:center;gap:.8rem;padding-top:1rem;border-top:1px solid var(--line);font-size:.88rem;color:var(--ink-soft);line-height:1.35}
 .review__who strong{color:var(--ink);font-weight:600}
 .review__avatar{flex:0 0 3rem;width:3rem;height:3rem;border-radius:50%;object-fit:cover;display:grid;place-items:center;background:var(--sand);color:var(--earth);font-weight:600}
+.review__top{display:flex;justify-content:space-between;align-items:baseline;gap:.8rem;flex-wrap:wrap}
+.review__date{font-size:.8rem;color:var(--ink-soft)}
+.review__label{font-size:.75rem;color:var(--ink-soft);font-style:italic;margin-top:-.3rem}
 .review--todo{border:2px dashed #A2412B}
 .review--todo blockquote,.review--todo .review__who{color:var(--ink-soft)}
 .todo-tag{align-self:flex-start;background:#A2412B;color:#fff;font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:.2rem .5rem;border-radius:2px}
