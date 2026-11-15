@@ -211,15 +211,19 @@ button{font:inherit}
 .made figcaption{margin-top:.7rem;font-size:.95rem;color:var(--ink-soft)}
 .made strong{color:var(--ink)}
 
-/* Quotes */
-.quotes{display:grid;gap:1rem;margin-top:2.5rem}
-@media (min-width:62rem){.quotes{grid-template-columns:repeat(3,1fr)}}
-.quote{background:var(--linen);color:var(--ink);border-radius:4px;padding:1.4rem 1.3rem;position:relative}
-.quote blockquote{font-family:var(--serif);font-size:1.15rem;line-height:1.45}
-.quote figcaption{margin-top:1rem;font-size:.88rem;color:var(--ink-soft)}
-.quote--todo{border:2px dashed #A2412B;background:rgba(244,245,241,.7)}
-.quote--todo blockquote{color:var(--ink-soft)}
-.todo-tag{display:inline-block;background:#A2412B;color:#fff;font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:.2rem .5rem;border-radius:2px;margin-bottom:.8rem}
+/* Reviews */
+.reviews{display:grid;gap:1rem;margin-top:2.5rem}
+@media (min-width:62rem){.reviews{grid-template-columns:repeat(3,1fr)}}
+.review{display:flex;flex-direction:column;gap:1rem;background:#fff;color:var(--ink);border:1px solid rgba(59,42,30,.14);border-radius:6px;padding:1.4rem 1.3rem;box-shadow:0 .6rem 1.6rem -1.2rem rgba(42,29,20,.45)}
+.review__meta{font-size:.74rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--forest)}
+.review__flag{font-size:1rem;margin-right:.2rem;vertical-align:-.1em}
+.review blockquote{font-family:var(--serif);font-size:1.12rem;line-height:1.5;flex:1}
+.review__who{display:flex;align-items:center;gap:.8rem;padding-top:1rem;border-top:1px solid var(--line);font-size:.88rem;color:var(--ink-soft);line-height:1.35}
+.review__who strong{color:var(--ink);font-weight:600}
+.review__avatar{flex:0 0 3rem;width:3rem;height:3rem;border-radius:50%;object-fit:cover;display:grid;place-items:center;background:var(--sand);color:var(--earth);font-weight:600}
+.review--todo{border:2px dashed #A2412B}
+.review--todo blockquote,.review--todo .review__who{color:var(--ink-soft)}
+.todo-tag{align-self:flex-start;background:#A2412B;color:#fff;font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:.2rem .5rem;border-radius:2px}
 
 /* How */
 .how{display:grid;gap:1rem;margin-top:2.5rem}
