@@ -15,7 +15,7 @@ Plain HTML, CSS and JavaScript. No build step.
 2. **Video.** Add the founder video as `video/worming-partners.mp4` (H.264, under ~50 MB) and set `videoSrc`. Self-hosted video needs no cookie banner.
 3. **Meta Pixel.** Set `metaPixelId`. A consent banner appears and the pixel loads only after "Allow". Events: `PageView`, `StartApplication` (custom), `ViewContent` (video play), `Lead` (submitted).
 4. **Customer quotes.** Replace the three dashed red cards in the "Already in use" section with real quotes (name, role, company, country, volume), or delete them. Do not publish invented reviews.
-5. **Check these placeholder facts** in `index.html`: lead time "5 to 10 working days", "prepayment for the first order", "heat-treated at 70 °C" (taken from Worming's older company listing), the founder letter wording.
+5. **Check these placeholder facts** in `index.html`: lead time "5 to 10 working days", "prepayment for the first order", capacity "up to 100 m³ a month", pack sizes 3/10/20/50 L and 1 m³, heat treatment and PVD permit (all from the zz.lv article about Worming), the founder letter wording.
 6. **Photos.** The images are the main site's placeholders. Replace with real photos, same file names.
 
 ## Hosting (GitHub Pages)
