@@ -31,5 +31,16 @@ and `launch_offer` (only if they applied in time), so give the discount only to 
 Set the repository secrets `SG_HOST`, `SG_PORT`, `SG_USER`, `SG_SSH_KEY` and `SG_PATH` (for this page: `www/b2b.wormingbio.com/public_html/`).
 Until they are set, the workflow skips the deploy. GitHub Pages preview: https://fitosauna.github.io/b2b.worming/
 
+## Offers on the page (honour these)
+- First pallet delivered free (freight paid by Worming on the first pallet, anywhere in Europe)
+- Matches the spec or we replace it: if a delivery does not match its batch passport, reported within 14 days, replace or refund
+- Partner starter kit: product photos, application guides by crop, 5 free sample bags for the partner's customers
+- Price list within 24 hours on working days
+- Launch offer (see above)
+
+## Quick path
+"In a hurry? Just send me the price list" skips to country + contact (phone optional). These arrive with `Request type: Quick price-list request` and tier `Quick`.
+The turnover question has a "Skip this question" link.
+
 ## Lead score
 Business type + first-year volume + turnover + start date + website → score. Tier A ≥ 75, B ≥ 45, else C. Call A leads first.

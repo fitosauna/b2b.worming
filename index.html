@@ -39,13 +39,14 @@
   <div class="wrap hero__grid">
     <div class="hero__copy">
       <p class="eyebrow">Distribution partners wanted · Europe</p>
-      <h1 id="hero-title" class="display">Add Latvian worm humus to your range.</h1>
-      <p class="lede">Solid biohumus from a family farm in Latvia, already supplied to 15 countries. We are looking for partners to sell it across Europe.</p>
+      <h1 id="hero-title" class="display">Add a peat-free soil improver your customers can trust.</h1>
+      <p class="lede">Worm humus (biohumus) from a family farm in Latvia, already supplied to 15 countries. We are looking for partners to sell it across Europe.</p>
       <ul class="chips" aria-label="Partner benefits">
         <li class="chip--offer" data-offer>20% off your first 3 orders · ends in <span data-countdown>3 days</span></li>
         <li>Free sample</li>
-        <li>Trial order first</li>
-        <li>Delivered across Europe</li>
+        <li>First pallet delivered free</li>
+        <li>Matches the spec or we replace it</li>
+        <li>Price list within 24 hours</li>
       </ul>
 
       <div class="step-label"><span class="step-num">1</span> Watch the 2-minute video</div>
@@ -63,6 +64,10 @@
 
     <div class="hero__form" id="apply">
       <div class="step-label step-label--form"><span class="step-num">2</span> Apply in under a minute</div>
+      <div class="promise">
+        <img src="images/toms.jpg" alt="Toms Upenieks" width="80" height="80">
+        <p>“I reply to every application personally, within 24 hours on working days.”<br><span>Toms Upenieks, founder</span></p>
+      </div>
       <div class="card">
         <form class="qform" id="qform" novalidate>
           <div class="qform__head">
@@ -70,6 +75,7 @@
             <p class="qform__count num"><span data-step-now>1</span> / <span data-step-total>8</span></p>
           </div>
           <div class="qform__bar" aria-hidden="true"><span></span></div>
+          <p class="quick" data-quick-link><button type="button" class="back" data-quick>In a hurry? Just send me the price list</button></p>
 
           <!-- Step 1: partner type (routes the lead) -->
           <fieldset class="q is-active" data-step="1">
@@ -144,7 +150,7 @@
           <!-- Step 6: company size -->
           <fieldset class="q" data-step="6" data-auto>
             <legend class="q__title">What is your company's annual turnover?</legend>
-            <p class="q__sub">An estimate in euros is fine.</p>
+            <p class="q__sub">An estimate in euros is fine. <button type="button" class="back" data-skip>Skip this question</button></p>
             <div class="opts">
               <label class="opt"><input type="radio" name="turnover" value="under_500k" required><span>Less than €500,000</span></label>
               <label class="opt"><input type="radio" name="turnover" value="500k_2m"><span>€500,000 to €2 million</span></label>
@@ -168,7 +174,7 @@
           <!-- Step 8: contact -->
           <fieldset class="q" data-step="8">
             <legend class="q__title">Where should we send the price list?</legend>
-            <p class="q__sub">We reply by email within one working day.</p>
+            <p class="q__sub">You get our price list by email within 24 hours on working days.</p>
             <div class="fields">
               <label class="field"><span>First name</span><input name="first_name" autocomplete="given-name" required></label>
               <label class="field"><span>Last name</span><input name="last_name" autocomplete="family-name" required></label>
@@ -199,7 +205,7 @@
           <p class="done__icon" aria-hidden="true">✓</p>
           <h2 class="done__title">Application received. Thank you<span data-name></span>.</h2>
           <p class="done__fallback" hidden><strong>One more step:</strong> your email app has opened with your answers. Press send there so we receive them.</p>
-          <p>Toms reads every application himself. You will get our price list by email within one working day.</p>
+          <p>Toms reads every application himself. You will get our price list by email within 24 hours on working days.</p>
           <p data-offer><strong>Your launch offer is reserved:</strong> 20% off your first 3 orders.</p>
           <p class="small muted">Want to talk sooner?</p>
           <p class="done__actions"><a class="btn btn--dark" data-whatsapp href="#"><span>Message us on WhatsApp</span></a></p>
@@ -211,6 +217,11 @@
           <button type="button" class="back" data-restart>Back to the application</button>
         </div>
       </div>
+      <ul class="trust">
+        <li>Supplied to 15 countries</li>
+        <li>Permitted by the Latvian Food and Veterinary Service</li>
+        <li>Heat-treated at 70 °C, every batch</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -312,9 +323,11 @@
       <ol class="stack">
         <li data-offer><h3>Launch offer: 20% off your first 3 orders</h3><p>Apply within 3 days of your first visit to this page. Room to win your first customers.</p></li>
         <li><h3>Free sample, then a trial order</h3><p>Test it with your customers before you commit to volume.</p></li>
+        <li><h3>First pallet delivered free</h3><p>We pay the freight on your first pallet, anywhere in Europe.</p></li>
+        <li><h3>Matches the spec, or we replace it</h3><p>If a delivery does not match its batch passport, we replace it or refund it.</p></li>
         <li><h3>Bags, big bags or bulk</h3><p>3, 10, 20 and 50 litre bags, 1 m³ big bags, or bulk.</p></li>
         <li><h3>Documents your customers ask for</h3><p>Specification sheet, batch report and organic suitability statement.</p></li>
-        <li><h3>Sales support</h3><p>Product photos and application guides by crop.</p></li>
+        <li><h3>Partner starter kit</h3><p>Retail-ready product photos, application guides by crop, and 5 free sample bags to give your best customers.</p></li>
         <li><h3>A direct line to the producer</h3><p>You deal with the people who make it. No agents in between.</p></li>
       </ol>
     </div>
@@ -383,7 +396,7 @@
     <h2 id="how-title" class="h2 h2--narrow">From application to your first pallet.</h2>
     <ol class="how">
       <li><span class="how__n num">01</span><h3>Apply</h3><p>Eight short questions, under a minute.</p></li>
-      <li><span class="how__n num">02</span><h3>Talk</h3><p>Price list and a short call within one working day.</p></li>
+      <li><span class="how__n num">02</span><h3>Talk</h3><p>Price list within 24 hours, then a short call.</p></li>
       <li><span class="how__n num">03</span><h3>Test</h3><p>Free sample, then a trial order.</p></li>
       <li><span class="how__n num">04</span><h3>Sell</h3><p>Agree volumes and start selling.</p></li>
     </ol>
@@ -398,12 +411,13 @@
       <h2 id="faq-title" class="h2">Quick answers.</h2>
     </div>
     <div class="faq">
-      <details data-offer><summary>How does the launch offer work?</summary><p>Apply through this page within 3 days of your first visit and you get 20% off the product price of your first 3 orders, placed within 12 months of your first order. The countdown on this page shows your time left. Freight is not discounted. One offer per company.</p></details>
+      <details data-offer><summary>How does the launch offer work?</summary><p>Apply through this page within 3 days of your first visit and you get 20% off the product price of your first 3 orders, placed within 12 months of your first order. The countdown on this page shows your time left. The discount is on the product price; your first pallet is delivered free anyway. One offer per company.</p></details>
       <details><summary>What are your prices?</summary><p>They depend on format and volume, so we send a price list after a short call. Prices are quoted delivered to your warehouse.</p></details>
       <details><summary>Is there a minimum order?</summary><p>You can start with a trial order. Volumes are agreed later.</p></details>
+      <details><summary>What if a delivery is not right?</summary><p>Every batch has a batch passport. If a delivery does not match it, tell us within 14 days and we replace it or refund it.</p></details>
       <details><summary>Can I get a sample first?</summary><p>Yes, free. Tick the box in the application.</p></details>
       <details><summary>How much can you supply?</summary><p>Up to 100 m³ a month. Demand peaks in spring and autumn, so plan those orders early.</p></details>
-      <details><summary>What are the lead time and delivery?</summary><p>Orders usually leave within 5 to 10 working days, by truck from Latvia to anywhere in Europe. Freight is included in the quote.</p></details>
+      <details><summary>What are the lead time and delivery?</summary><p>Orders usually leave within 5 to 10 working days, by truck from Latvia to anywhere in Europe. Freight is included in the quote, and your first pallet is delivered free.</p></details>
       <details><summary>What are the payment terms?</summary><p>Prepayment for the first order. Regular partners can agree flexible terms.</p></details>
       <details><summary>Can it be used in organic production?</summary><p>Vermicompost is an authorised soil conditioner under Regulation (EU) 2021/1165, Annex II. We supply an organic suitability statement for your customers' certifiers.</p></details>
       <details><summary>What if growers near me contact you directly?</summary><p>We pass them to you.</p></details>
@@ -447,6 +461,7 @@
 </footer>
 
 <a class="sticky-cta btn btn--light" href="#apply"><span>Apply as partner</span></a>
+<a class="wa-float" data-whatsapp href="#" aria-label="Message us on WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.6c-2 0-4-.6-5.7-1.6l-.4-.2-3.9 1 1-3.8-.3-.4A10.6 10.6 0 1 1 16 26.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.7 8.7 0 0 1-4.3-3.8c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.6 3.6 0 0 0-1.1 2.7 6.3 6.3 0 0 0 1.3 3.4c.2.2 2.2 3.4 5.4 4.8 2 .9 2.8.9 3.8.8.6-.1 1.9-.8 2.2-1.6s.3-1.4.2-1.6-.3-.2-.6-.3z"/></svg></a>
 
 <div class="consent" id="consent" hidden>
   <p>We use a Meta (Facebook) pixel to measure our ads. Allow it?</p>

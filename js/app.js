@@ -90,20 +90,25 @@
   /* ---------- Steps ---------- */
   var steps = $$(".q", form);
   var total = steps.length;
-  var cur = 0;
+  var order = steps.map(function (_, i) { return i; });
+  var pos = 0, cur = 0, quick = false;
   var bar = $(".qform__bar span", form);
   var nowEl = $("[data-step-now]", form);
-  $("[data-step-total]", form).textContent = total;
+  var totalEl = $("[data-step-total]", form);
+  totalEl.textContent = total;
   var backBtn = $("[data-back]", form);
   var card = $(".card");
   var started = false;
 
-  function show(i, focus) {
+  function show(p, focus) {
+    pos = p; cur = order[p];
+    var i = cur;
     steps.forEach(function (s, n) { s.classList.toggle("is-active", n === i); });
-    cur = i;
-    nowEl.textContent = i + 1;
-    bar.style.width = ((i + 1) / total * 100) + "%";
-    backBtn.hidden = i === 0;
+    nowEl.textContent = p + 1;
+    totalEl.textContent = order.length;
+    bar.style.width = ((p + 1) / order.length * 100) + "%";
+    backBtn.hidden = p === 0;
+    var ql = $("[data-quick-link]", form); if (ql) ql.hidden = quick || p !== 0;
     if (focus) {
       var r = card.getBoundingClientRect();
       if (r.top < 0 || r.top > window.innerHeight * 0.4) card.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -138,7 +143,7 @@
       var types = $$("input[name=business_type]:checked", form).map(function (c) { return c.value; });
       if (types.length === 1 && types[0] === "personal_use") { endScreen("#done-personal"); return; }
     }
-    if (cur < total - 1) show(cur + 1, true);
+    if (pos < order.length - 1) show(pos + 1, true);
   }
 
   // auto-advance on single-choice steps
@@ -160,9 +165,30 @@
     });
   });
   $$("[data-next]", form).forEach(function (b) { b.addEventListener("click", next); });
-  backBtn.addEventListener("click", function () { if (cur > 0) show(cur - 1, true); });
+  backBtn.addEventListener("click", function () {
+    if (pos > 0) { show(pos - 1, true); return; }
+  });
+  // Quick path: country + contact only
+  var phoneEl = form.elements.phone;
+  function setQuick(on) {
+    quick = on;
+    order = on ? [1, total - 1] : steps.map(function (_, i) { return i; });
+    form.classList.toggle("is-quick", on);
+    phoneEl.required = !on;
+    var lbl = phoneEl.closest(".field").querySelector("span");
+    lbl.innerHTML = on ? "Phone or WhatsApp <em>(optional)</em>" : "Phone or WhatsApp";
+  }
+  var qb = $("[data-quick]", form);
+  if (qb) qb.addEventListener("click", function () { setQuick(true); track("QuickPriceList", {}, true); show(0, true); });
+  // Skippable questions
+  $$("[data-skip]", form).forEach(function (b) {
+    b.addEventListener("click", function () {
+      $$("input[type=radio]", steps[cur]).forEach(function (r) { r.checked = false; });
+      if (pos < order.length - 1) show(pos + 1, true);
+    });
+  });
   form.addEventListener("keydown", function (e) {
-    if (e.key === "Enter" && e.target.tagName !== "TEXTAREA" && cur < total - 1) { e.preventDefault(); next(); }
+    if (e.key === "Enter" && e.target.tagName !== "TEXTAREA" && e.target.tagName !== "BUTTON" && pos < order.length - 1) { e.preventDefault(); next(); }
   });
   $$(".field input, .field select, .tick input", form).forEach(function (el) {
     el.addEventListener("input", function () { var w = el.closest(".field, .tick"); if (w) w.classList.remove("is-bad"); });
@@ -179,6 +205,7 @@
     $$(".done").forEach(function (d) { d.hidden = true; });
     form.hidden = false;
     $$("input[name=business_type]", form).forEach(function (r) { r.checked = false; });
+    setQuick(false);
     show(0, true);
   });
 
@@ -204,6 +231,7 @@
     var s = score(d);
     d.lead_score = String(s);
     d.lead_tier = s >= 75 ? "A" : s >= 45 ? "B" : "C";
+    if (quick) { d.path = "Quick price-list request"; d.lead_tier = "Quick"; } else d.path = "Full application";
     if (offerOn && C.offerLabel) d.launch_offer = C.offerLabel;
     d.first_visit = new Date(firstVisit).toISOString();
     d.offer_deadline = new Date(offerEnd).toISOString();
@@ -211,7 +239,7 @@
   }
 
   var labels = {
-    business_type: "Business type", country: "Country", use: "Use", formats: "Formats",
+    path: "Request type", business_type: "Business type", country: "Country", use: "Use", formats: "Formats",
     volume_year1: "First-year volume", turnover: "Turnover", timeline: "Start", first_name: "First name",
     last_name: "Last name", company: "Company", email: "Email", phone: "Phone / WhatsApp", website: "Website",
     wants_sample: "Free sample", launch_offer: "Launch offer", first_visit: "First visit", offer_deadline: "Offer deadline", lead_tier: "Lead tier", lead_score: "Lead score", utm_source: "utm_source",
@@ -225,7 +253,7 @@
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     var step = steps[cur];
-    if (cur !== total - 1) { next(); return; }
+    if (pos !== order.length - 1) { next(); return; }
     if (!valid(step)) { shake(step); return; }
     if (form.elements.company_url.value) return; // bot
     var d = collect();
@@ -271,7 +299,8 @@
   var hero = $(".hero__form");
   if (sticky && hero && "IntersectionObserver" in window) {
     var past = false, formVisible = true;
-    var upd = function () { sticky.classList.toggle("is-on", past && !formVisible); };
+    var wa = $(".wa-float");
+    var upd = function () { var on = past && !formVisible; sticky.classList.toggle("is-on", on); if (wa) wa.classList.toggle("is-on", on); };
     new IntersectionObserver(function (en) { formVisible = en[0].isIntersecting; upd(); }).observe(hero);
     window.addEventListener("scroll", function () { past = window.scrollY > window.innerHeight * 0.8; upd(); }, { passive: true });
   }
