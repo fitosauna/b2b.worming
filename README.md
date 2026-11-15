@@ -13,7 +13,7 @@ Plain HTML, CSS and JavaScript. No build step.
 
 ## Before launch
 1. **Form delivery.** Set `formEndpoint` in `js/config.js` (Formspree, Web3Forms, Make, Zapier or a GoHighLevel inbound webhook). Each submission arrives as JSON with a subject like `Partner application [A]: Company (Country)`. Until it is set, the form opens a pre-filled email to `email` instead, so nothing is lost but the visitor has to press send.
-2. **Video.** Add the founder video as `video/worming-partners.mp4` (H.264, under ~50 MB) and set `videoSrc`. Self-hosted video needs no cookie banner.
+2. **Video.** Done: `video/worming-partners.mp4` (1080p H.264, ~44 MB, compressed from the 114 MB original) with poster `images/video-poster.jpg`. To replace it, keep the file under 100 MB (GitHub limit).
 3. **Meta Pixel.** Set `metaPixelId`. A consent banner appears and the pixel loads only after "Allow". Events: `PageView`, `StartApplication` (custom), `ViewContent` (video play), `Lead` (submitted).
 4. **Customer quotes.** Replace the three dashed red cards in the "Already in use" section with real quotes (name, role, company, country, volume), or delete them. Do not publish invented reviews.
 5. **Check these placeholder facts** in `index.html`: lead time "5 to 10 working days", "prepayment for the first order", capacity "up to 100 m³ a month", pack sizes 3/10/20/50 L and 1 m³, heat treatment and PVD permit (all from the zz.lv article about Worming), the founder letter wording.
@@ -39,7 +39,7 @@ Until they are set, the workflow skips the deploy. GitHub Pages preview: https:/
 - Launch offer (see above)
 
 ## Quick path
-"In a hurry? Just send me the price list" skips to country + contact (phone optional). These arrive with `Request type: Quick price-list request` and tier `Quick`.
+"In a hurry? Just send me the price list" skips straight to the contact step, which includes the country (phone optional). These arrive with `Request type: Quick price-list request` and tier `Quick`.
 The turnover question has a "Skip this question" link.
 
 ## Lead score

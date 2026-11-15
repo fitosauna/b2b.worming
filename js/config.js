@@ -18,8 +18,8 @@ window.WORMING_B2B = {
 
   // Founder video. Put an .mp4 in /video and set its path, e.g. "video/worming-partners.mp4".
   // Self-hosted video plays without a cookie banner. Leave empty to show the placeholder.
-  videoSrc: "",
-  videoPoster: "images/beds.jpg",
+  videoSrc: "video/worming-partners.mp4",
+  videoPoster: "images/video-poster.jpg",
 
   // Launch offer. Each visitor gets a personal deadline: offerHours after their first visit (remembered in
   // their browser). The page shows a live countdown and hides the offer when their time is up.

@@ -118,6 +118,7 @@
   }
 
   function valid(step) {
+    if (step.hasAttribute("data-optional")) return true;
     var radios = $$("input[type=radio]", step);
     if (radios.length) return radios.some(function (r) { return r.checked; });
     var checks = $$(".opt--check input", step);
@@ -172,7 +173,7 @@
   var phoneEl = form.elements.phone;
   function setQuick(on) {
     quick = on;
-    order = on ? [1, total - 1] : steps.map(function (_, i) { return i; });
+    order = on ? [total - 1] : steps.map(function (_, i) { return i; });
     form.classList.toggle("is-quick", on);
     phoneEl.required = !on;
     var lbl = phoneEl.closest(".field").querySelector("span");

@@ -43,10 +43,9 @@
       <p class="lede">Worm humus (biohumus) from a family farm in Latvia, already supplied to 15 countries. We are looking for partners to sell it across Europe.</p>
       <ul class="chips" aria-label="Partner benefits">
         <li class="chip--offer" data-offer>20% off your first 3 orders · ends in <span data-countdown>3 days</span></li>
-        <li>Direct-from-producer prices</li>
+        <li>Best prices</li>
         <li>Free sample</li>
         <li>First pallet delivered free</li>
-        <li>Matches the spec or we replace it</li>
         <li>Price list within 24 hours</li>
       </ul>
 
@@ -64,16 +63,11 @@
     </div>
 
     <div class="hero__form" id="apply">
-      <div class="step-label step-label--form"><span class="step-num">2</span> Apply in under a minute</div>
-      <div class="promise">
-        <img src="images/toms.jpg" alt="Toms Upenieks" width="80" height="80">
-        <p>“I reply to every application personally, within 24 hours on working days.”<br><span>Toms Upenieks, founder</span></p>
-      </div>
       <div class="card">
         <form class="qform" id="qform" novalidate>
           <div class="qform__head">
             <p class="qform__title">Partner application</p>
-            <p class="qform__count num"><span data-step-now>1</span> / <span data-step-total>8</span></p>
+            <p class="qform__count num"><span data-step-now>1</span> / <span data-step-total>6</span></p>
           </div>
           <div class="qform__bar" aria-hidden="true"><span></span></div>
           <p class="quick" data-quick-link><button type="button" class="back" data-quick>In a hurry? Just send me the price list</button></p>
@@ -92,24 +86,9 @@
             <div class="q__nav"><button type="button" class="btn btn--dark" data-next><span>Continue</span></button></div>
           </fieldset>
 
-          <!-- Step 2: country -->
-          <fieldset class="q" data-step="2">
-            <legend class="q__title">Which country do you sell in?</legend>
-            <p class="q__sub">Pick your main market.</p>
-            <label class="field">
-              <span class="sr-only">Country</span>
-              <select name="country" required>
-                <option value="">Select a country</option>
-                <option>Austria</option><option>Belgium</option><option>Bulgaria</option><option>Croatia</option><option>Cyprus</option><option>Czechia</option><option>Denmark</option><option>Estonia</option><option>Finland</option><option>France</option><option>Germany</option><option>Greece</option><option>Hungary</option><option>Iceland</option><option>Ireland</option><option>Italy</option><option>Latvia</option><option>Lithuania</option><option>Luxembourg</option><option>Malta</option><option>Netherlands</option><option>Norway</option><option>Poland</option><option>Portugal</option><option>Romania</option><option>Slovakia</option><option>Slovenia</option><option>Spain</option><option>Sweden</option><option>Switzerland</option><option>United Kingdom</option>
-                <option>Other European country</option>
-                <option>Several countries</option>
-              </select>
-            </label>
-            <div class="q__nav"><button type="button" class="btn btn--dark" data-next><span>Continue</span></button></div>
-          </fieldset>
 
-          <!-- Step 3: how they would use it -->
-          <fieldset class="q" data-step="3">
+          <!-- Step 2: how they would use it -->
+          <fieldset class="q" data-step="2">
             <legend class="q__title">How would you use our worm humus?</legend>
             <p class="q__sub">Select all that apply.</p>
             <div class="opts">
@@ -121,21 +100,9 @@
             <div class="q__nav"><button type="button" class="btn btn--dark" data-next><span>Continue</span></button></div>
           </fieldset>
 
-          <!-- Step 4: formats -->
-          <fieldset class="q" data-step="4">
-            <legend class="q__title">Which formats interest you?</legend>
-            <p class="q__sub">Select all that apply.</p>
-            <div class="opts">
-              <label class="opt opt--check"><input type="checkbox" name="formats" value="retail_bags"><span>Retail bags (3 to 50 litres)</span></label>
-              <label class="opt opt--check"><input type="checkbox" name="formats" value="big_bags"><span>Big bags on pallets</span></label>
-              <label class="opt opt--check"><input type="checkbox" name="formats" value="bulk"><span>Bulk</span></label>
-              <label class="opt opt--check"><input type="checkbox" name="formats" value="not_sure"><span>Not sure yet</span></label>
-            </div>
-            <div class="q__nav"><button type="button" class="btn btn--dark" data-next><span>Continue</span></button></div>
-          </fieldset>
 
-          <!-- Step 5: volume -->
-          <fieldset class="q" data-step="5" data-auto>
+          <!-- Step 3: volume -->
+          <fieldset class="q" data-step="3" data-auto>
             <legend class="q__title">How much could you sell in the first year?</legend>
             <p class="q__sub">A rough estimate is fine.</p>
             <div class="opts">
@@ -148,12 +115,12 @@
             </div>
           </fieldset>
 
-          <!-- Step 6: company size -->
-          <fieldset class="q" data-step="6" data-auto>
-            <legend class="q__title">What is your company's annual turnover?</legend>
+          <!-- Step 4: company size (optional) -->
+          <fieldset class="q" data-step="4" data-auto data-optional>
+            <legend class="q__title">What is your company's annual turnover? <span class="q__opt">(optional)</span></legend>
             <p class="q__sub">An estimate in euros is fine. <button type="button" class="back" data-skip>Skip this question</button></p>
             <div class="opts">
-              <label class="opt"><input type="radio" name="turnover" value="under_500k" required><span>Less than €500,000</span></label>
+              <label class="opt"><input type="radio" name="turnover" value="under_500k"><span>Less than €500,000</span></label>
               <label class="opt"><input type="radio" name="turnover" value="500k_2m"><span>€500,000 to €2 million</span></label>
               <label class="opt"><input type="radio" name="turnover" value="2m_10m"><span>€2 to €10 million</span></label>
               <label class="opt"><input type="radio" name="turnover" value="10m_plus"><span>More than €10 million</span></label>
@@ -161,8 +128,8 @@
             </div>
           </fieldset>
 
-          <!-- Step 7: timing -->
-          <fieldset class="q" data-step="7" data-auto>
+          <!-- Step 5: timing -->
+          <fieldset class="q" data-step="5" data-auto>
             <legend class="q__title">When would you like to start?</legend>
             <div class="opts">
               <label class="opt"><input type="radio" name="timeline" value="within_1_month" required><span>Within a month</span></label>
@@ -172,14 +139,20 @@
             </div>
           </fieldset>
 
-          <!-- Step 8: contact -->
-          <fieldset class="q" data-step="8">
+          <!-- Step 6: contact + country -->
+          <fieldset class="q" data-step="6">
             <legend class="q__title">Where should we send the price list?</legend>
             <p class="q__sub">You get our price list by email within 24 hours on working days.</p>
             <div class="fields">
               <label class="field"><span>First name</span><input name="first_name" autocomplete="given-name" required></label>
               <label class="field"><span>Last name</span><input name="last_name" autocomplete="family-name" required></label>
               <label class="field field--full"><span>Company</span><input name="company" autocomplete="organization" required></label>
+              <label class="field field--full"><span>Country you sell in</span><select autocomplete="country-name" name="country" required>
+                <option value="">Select a country</option>
+                <option>Austria</option><option>Belgium</option><option>Bulgaria</option><option>Croatia</option><option>Cyprus</option><option>Czechia</option><option>Denmark</option><option>Estonia</option><option>Finland</option><option>France</option><option>Germany</option><option>Greece</option><option>Hungary</option><option>Iceland</option><option>Ireland</option><option>Italy</option><option>Latvia</option><option>Lithuania</option><option>Luxembourg</option><option>Malta</option><option>Netherlands</option><option>Norway</option><option>Poland</option><option>Portugal</option><option>Romania</option><option>Slovakia</option><option>Slovenia</option><option>Spain</option><option>Sweden</option><option>Switzerland</option><option>United Kingdom</option>
+                <option>Other European country</option>
+                <option>Several countries</option>
+              </select></label>
               <label class="field field--full"><span>Work email</span><input type="email" name="email" autocomplete="email" inputmode="email" required></label>
               <label class="field field--full"><span>Phone or WhatsApp</span><input type="tel" name="phone" autocomplete="tel" inputmode="tel" required></label>
               <label class="field field--full"><span>Website <em>(optional)</em></span><input type="text" name="website" inputmode="url" placeholder="www.yourcompany.com"></label>
@@ -222,6 +195,7 @@
         <li>Supplied to 15 countries</li>
         <li>Permitted by the Latvian Food and Veterinary Service</li>
         <li>Heat-treated at 70 °C, every batch</li>
+        <li>Matches the spec, or we replace it</li>
       </ul>
     </div>
   </div>
@@ -351,17 +325,40 @@
 <!-- PROOF / REVIEWS -->
 <section class="sec sec--sand" aria-labelledby="proof-title">
   <div class="wrap">
-    <p class="eyebrow eyebrow--dark">Photo gallery</p>
+    <p class="eyebrow eyebrow--dark">Already in use</p>
     <h2 id="proof-title" class="h2 h2--narrow">Supplied to 15 countries, including the Netherlands, Ireland and Germany.</h2>
-    <div class="reviews reviews--portraits" aria-label="Photo gallery">
-      <figure class="review review--portrait">
-        <img class="review__portrait" src="images/review-portrait-1.jpg" alt="Man with short dark hair standing with his arms crossed" loading="lazy" width="220" height="293">
+    <!-- REVIEWS: these three are labelled fictional samples. Replace them with real, approved customer quotes when you have them,
+         then remove the "Sample testimonial — fictional" line. -->
+    <div class="reviews">
+      <figure class="review review--placeholder">
+        <span class="todo-tag">Placeholder: replace with a real customer review and photo</span>
+        <div class="review__top"><span class="review__meta"><svg class="review__flag" viewBox="0 0 3 2" role="img" aria-label="Netherlands flag"><rect width="3" height="2" fill="#21468B"/><rect width="3" height="1.333" fill="#fff"/><rect width="3" height=".667" fill="#AE1C28"/></svg> Netherlands · Growing media</span><span class="review__date">September 2026</span></div>
+        <blockquote>“We were looking for a reliable source of vermicompost for our substrate blends. Worming offered competitive pricing, clear product information and quick answers throughout the ordering process.”</blockquote>
+        <figcaption class="review__who">
+          <svg class="review__avatar review__avatar--ph" viewBox="0 0 48 48" role="img" aria-label="Placeholder photo"><circle cx="24" cy="24" r="24"/><circle cx="24" cy="19" r="8"/><path d="M8 41c3-8 9-12 16-12s13 4 16 12"/></svg>
+          <span><strong>Mark de Vries</strong><br>Procurement Manager · Dutch substrate producer</span>
+        </figcaption>
+        <p class="review__label">Sample testimonial — fictional</p>
       </figure>
-      <figure class="review review--portrait">
-        <img class="review__portrait" src="images/review-portrait-2.jpg" alt="Man in a black T-shirt standing outdoors in a dry landscape" loading="lazy" width="220" height="293">
+      <figure class="review review--placeholder">
+        <span class="todo-tag">Placeholder: replace with a real customer review and photo</span>
+        <div class="review__top"><span class="review__meta"><svg class="review__flag" viewBox="0 0 3 2" role="img" aria-label="Ireland flag"><rect width="3" height="2" fill="#FF883E"/><rect width="2" height="2" fill="#fff"/><rect width="1" height="2" fill="#169B62"/></svg> Ireland · Horticultural distribution</span><span class="review__date">August 2026</span></div>
+        <blockquote>“What we value most is the straightforward communication. Pricing is reasonable, bulk orders are handled efficiently, and it's easy to speak directly with the manufacturer.”</blockquote>
+        <figcaption class="review__who">
+          <svg class="review__avatar review__avatar--ph" viewBox="0 0 48 48" role="img" aria-label="Placeholder photo"><circle cx="24" cy="24" r="24"/><circle cx="24" cy="19" r="8"/><path d="M8 41c3-8 9-12 16-12s13 4 16 12"/></svg>
+          <span><strong>David Murphy</strong><br>Purchasing Director · Horticultural wholesaler</span>
+        </figcaption>
+        <p class="review__label">Sample testimonial — fictional</p>
       </figure>
-      <figure class="review review--portrait">
-        <img class="review__portrait" src="images/review-portrait-3.jpg" alt="Woman smiling outdoors at a plant nursery" loading="lazy" width="220" height="293">
+      <figure class="review review--placeholder">
+        <span class="todo-tag">Placeholder: replace with a real customer review and photo</span>
+        <div class="review__top"><span class="review__meta"><svg class="review__flag" viewBox="0 0 5 3" role="img" aria-label="Germany flag"><rect width="5" height="3" fill="#FFCE00"/><rect width="5" height="2" fill="#DD0000"/><rect width="5" height="1" fill="#000"/></svg> Germany · Commercial horticulture</span><span class="review__date">October 2026</span></div>
+        <blockquote>“We tested the material in a small growing-media batch before placing a larger order. The quality was consistent with the supplied specifications, and communication with the Worming team was excellent.”</blockquote>
+        <figcaption class="review__who">
+          <svg class="review__avatar review__avatar--ph" viewBox="0 0 48 48" role="img" aria-label="Placeholder photo"><circle cx="24" cy="24" r="24"/><circle cx="24" cy="19" r="8"/><path d="M8 41c3-8 9-12 16-12s13 4 16 12"/></svg>
+          <span><strong>Stefan Müller</strong><br>Production Manager · Commercial nursery</span>
+        </figcaption>
+        <p class="review__label">Sample testimonial — fictional</p>
       </figure>
     </div>
   </div>
@@ -373,7 +370,7 @@
     <p class="eyebrow eyebrow--dark">How it works</p>
     <h2 id="how-title" class="h2 h2--narrow">From application to your first pallet.</h2>
     <ol class="how">
-      <li><span class="how__n num">01</span><h3>Apply</h3><p>Eight short questions, under a minute.</p></li>
+      <li><span class="how__n num">01</span><h3>Apply</h3><p>Six short questions, under a minute.</p></li>
       <li><span class="how__n num">02</span><h3>Talk</h3><p>Price list within 24 hours, then a short call.</p></li>
       <li><span class="how__n num">03</span><h3>Test</h3><p>Free sample, then a trial order.</p></li>
       <li><span class="how__n num">04</span><h3>Sell</h3><p>Agree volumes and start selling.</p></li>

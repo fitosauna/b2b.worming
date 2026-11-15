@@ -288,11 +288,7 @@ button{font:inherit}
 
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
 
-/* Founder promise, quick path, trust row, WhatsApp */
-.promise{display:flex;align-items:center;gap:.8rem;margin-bottom:.9rem}
-.promise img{width:3.4rem;height:3.4rem;border-radius:50%;object-fit:cover;border:2px solid var(--sage);flex:0 0 auto}
-.promise p{font-size:.92rem;line-height:1.4;color:var(--linen)}
-.promise span{font-size:.82rem;color:var(--on-dark-soft)}
+/* Quick path, trust row, WhatsApp */
 .quick{margin:-.6rem 0 1rem;font-size:.88rem}
 .trust{display:grid;gap:.35rem;margin-top:1rem;font-size:.85rem;color:var(--on-dark-soft)}
 .trust li::before{content:"✓";color:var(--sage);margin-right:.5rem}
@@ -303,7 +299,4 @@ button{font:inherit}
 .qform.is-quick .qform__count{visibility:hidden}
 @media (max-width:61.99rem){.wa-float{transform:translateY(180%);transition:transform .45s var(--ease)}.wa-float.is-on{transform:none}}
 
-/* Photo gallery replacing the fictional review cards. */
-.reviews--portraits{gap:1.25rem}
-.review--portrait{padding:.55rem;overflow:hidden}
-.review__portrait{display:block;width:100%;height:auto;aspect-ratio:3 / 4;object-fit:cover;border-radius:3px}
+.q__opt{font-family:var(--sans);font-size:.85rem;font-weight:400;color:var(--ink-soft)}
