@@ -26,10 +26,10 @@ When it runs out, the offer disappears for that visitor. Every application inclu
 and `launch_offer` (only if they applied in time), so give the discount only to applications that carry the offer line.
 `offerDeadline` ends the whole campaign. Keep this honest: do not reset or extend deadlines for people who missed them.
 
-## Hosting (GitHub Pages)
-- Settings → Pages → Deploy from a branch → `main` / root. Preview URL: https://fitosauna.github.io/b2b.worming/
-- When wormingbio.com DNS is ready: add a CNAME record `b2b` → `fitosauna.github.io`, then enter `b2b.wormingbio.com` under Settings → Pages → Custom domain and tick "Enforce HTTPS".
-- `personalUseUrl` in config sends home gardeners to the main site.
+## Hosting (SiteGround)
+`.github/workflows/deploy-siteground.yml` uploads the site to SiteGround on every push to `main` (files listed in `.deployignore` are skipped).
+Set the repository secrets `SG_HOST`, `SG_PORT`, `SG_USER`, `SG_SSH_KEY` and `SG_PATH` (for this page: `www/b2b.wormingbio.com/public_html/`).
+Until they are set, the workflow skips the deploy. GitHub Pages preview: https://fitosauna.github.io/b2b.worming/
 
 ## Lead score
 Business type + first-year volume + turnover + start date + website → score. Tier A ≥ 75, B ≥ 45, else C. Call A leads first.
