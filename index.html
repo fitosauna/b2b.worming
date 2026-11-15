@@ -147,25 +147,25 @@
               <label class="field nq"><span>First name</span><input name="first_name" autocomplete="given-name" required></label>
               <label class="field nq"><span>Last name</span><input name="last_name" autocomplete="family-name" required></label>
               <label class="field field--full"><span>Company</span><input name="company" autocomplete="organization" required></label>
-              <label class="field field--full"><span>Country you sell in</span><select autocomplete="country-name" name="country" required>
-                <option value="">Select a country</option>
-                <option>Austria</option><option>Belgium</option><option>Bulgaria</option><option>Croatia</option><option>Cyprus</option><option>Czechia</option><option>Denmark</option><option>Estonia</option><option>Finland</option><option>France</option><option>Germany</option><option>Greece</option><option>Hungary</option><option>Iceland</option><option>Ireland</option><option>Italy</option><option>Latvia</option><option>Lithuania</option><option>Luxembourg</option><option>Malta</option><option>Netherlands</option><option>Norway</option><option>Poland</option><option>Portugal</option><option>Romania</option><option>Slovakia</option><option>Slovenia</option><option>Spain</option><option>Sweden</option><option>Switzerland</option><option>United Kingdom</option>
-                <option>Other European country</option>
-                <option>Several countries</option>
-              </select></label>
               <label class="field field--full"><span>Work email</span><input type="email" name="email" autocomplete="email" inputmode="email" required></label>
-              <label class="field nq field--full"><span>Phone or WhatsApp</span><input type="tel" name="phone" autocomplete="tel" inputmode="tel" required></label>
+              <div class="field nq field--full"><span id="ph-label">Phone or WhatsApp</span>
+                <div class="phone">
+                  <select name="phone_prefix" aria-label="Country code" autocomplete="tel-country-code"></select>
+                  <input type="tel" name="phone" autocomplete="tel-national" inputmode="tel" required aria-labelledby="ph-label">
+                </div>
+              </div>
               <label class="field nq field--full"><span>Website <em>(optional)</em></span><input type="text" name="website" inputmode="url" placeholder="www.yourcompany.com"></label>
             </div>
             <label class="tick nq"><input type="checkbox" name="wants_sample" value="yes" checked><span>Send me a free sample</span></label>
             <label class="tick"><input type="checkbox" name="consent" value="yes" required><span>I agree that Worming uses these details to reply to my application. <a href="https://wormingbio.com/privacy.html" target="_blank" rel="noopener">Privacy policy</a></span></label>
             <p class="offer-note" data-offer>Sending this application reserves your launch offer: 20% off your first 3 orders. It ends in <strong data-countdown>3 days</strong>.</p>
+            <p class="offer-note" data-exit-note hidden><strong>Your free first shipment is reserved.</strong> Send this form and we cover your first pallet, product and delivery.</p>
             <p class="q__error" role="alert" hidden></p>
             <div class="q__nav"><button type="submit" class="btn btn--dark btn--full"><span>Send my application</span></button></div>
           </fieldset>
 
           <!-- hidden tracking fields, filled by js/app.js -->
-          <input type="hidden" name="utm_source"><input type="hidden" name="utm_medium"><input type="hidden" name="utm_campaign"><input type="hidden" name="utm_content"><input type="hidden" name="utm_term"><input type="hidden" name="fbclid"><input type="hidden" name="landing_url">
+          <input type="hidden" name="utm_source"><input type="hidden" name="utm_medium"><input type="hidden" name="utm_campaign"><input type="hidden" name="utm_content"><input type="hidden" name="utm_term"><input type="hidden" name="fbclid"><input type="hidden" name="landing_url"><input type="hidden" name="free_first_shipment">
           <div class="hp" aria-hidden="true"><label>Leave this empty<input name="company_url" tabindex="-1" autocomplete="off"></label></div>
 
           <div class="qform__foot">
@@ -435,8 +435,19 @@
   </div>
 </footer>
 
-<a class="sticky-cta btn btn--light" href="#apply"><span>Apply as partner</span></a>
 <a class="wa-float" data-whatsapp href="#" aria-label="Message us on WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.6c-2 0-4-.6-5.7-1.6l-.4-.2-3.9 1 1-3.8-.3-.4A10.6 10.6 0 1 1 16 26.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.7 8.7 0 0 1-4.3-3.8c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.6 3.6 0 0 0-1.1 2.7 6.3 6.3 0 0 0 1.3 3.4c.2.2 2.2 3.4 5.4 4.8 2 .9 2.8.9 3.8.8.6-.1 1.9-.8 2.2-1.6s.3-1.4.2-1.6-.3-.2-.6-.3z"/></svg></a>
+
+<div class="exit" id="exit" hidden>
+  <div class="exit__box" role="dialog" aria-modal="true" aria-labelledby="exit-title">
+    <button type="button" class="exit__x" data-exit-close aria-label="Close">×</button>
+    <p class="eyebrow eyebrow--dark">Before you go</p>
+    <h2 id="exit-title" class="exit__title">Want your first shipment fully on us?</h2>
+    <p>We are confident in our quality, so we cover your first pallet, product and delivery. Test it with your own customers at zero risk.</p>
+    <p class="small muted">For new business partners. One pallet per company. Leave your company and email now.</p>
+    <button type="button" class="btn btn--dark btn--full" data-exit-go><span>Yes, send me my free first shipment</span></button>
+    <p class="exit__no"><button type="button" class="back" data-exit-close>No thanks</button></p>
+  </div>
+</div>
 
 <div class="consent" id="consent" hidden>
   <p>We use a Meta (Facebook) pixel to measure our ads. Allow it?</p>

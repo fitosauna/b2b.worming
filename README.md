@@ -37,10 +37,14 @@ Until they are set, the workflow skips the deploy. GitHub Pages preview: https:/
 - Partner starter kit: product photos, application guides by crop, 5 free sample bags for the partner's customers
 - Price list within 24 hours on working days
 - Launch offer (see above)
+- Exit-intent offer (shown once per visitor when they try to leave): first pallet free, product and delivery, one per company. Applications that accepted it arrive with "FREE FIRST SHIPMENT" in the email subject.
 
 ## Quick path
-"In a hurry? Just send me the price list" skips straight to the contact step, which includes the country (phone optional). These arrive with `Request type: Quick price-list request` and tier `Quick`.
+"In a hurry? Just send me the price list" skips straight to the contact step and asks only for company and email. These arrive with `Request type: Quick price-list request` and tier `Quick`.
 The turnover question has a "Skip this question" link.
 
 ## Lead score
 Business type + first-year volume + turnover + start date + website → score. Tier A ≥ 75, B ≥ 45, else C. Call A leads first.
+
+## Phone country code
+The phone field has a country-code picker. The default is guessed from the visitor's time zone (no IP lookup, so no visitor data goes to a third party); the visitor can change it.

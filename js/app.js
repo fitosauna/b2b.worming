@@ -87,6 +87,32 @@
   });
   form.elements.landing_url.value = location.origin + location.pathname;
 
+  /* ---------- Phone country code (guessed from the visitor's time zone; no IP lookup) ---------- */
+  var DIAL = [["AL","Albania","+355"],["AD","Andorra","+376"],["AT","Austria","+43"],["BE","Belgium","+32"],["BA","Bosnia and Herzegovina","+387"],["BG","Bulgaria","+359"],["HR","Croatia","+385"],["CY","Cyprus","+357"],["CZ","Czechia","+420"],["DK","Denmark","+45"],["EE","Estonia","+372"],["FI","Finland","+358"],["FR","France","+33"],["DE","Germany","+49"],["GR","Greece","+30"],["HU","Hungary","+36"],["IS","Iceland","+354"],["IE","Ireland","+353"],["IT","Italy","+39"],["XK","Kosovo","+383"],["LV","Latvia","+371"],["LI","Liechtenstein","+423"],["LT","Lithuania","+370"],["LU","Luxembourg","+352"],["MT","Malta","+356"],["MD","Moldova","+373"],["MC","Monaco","+377"],["ME","Montenegro","+382"],["NL","Netherlands","+31"],["MK","North Macedonia","+389"],["NO","Norway","+47"],["PL","Poland","+48"],["PT","Portugal","+351"],["RO","Romania","+40"],["SM","San Marino","+378"],["RS","Serbia","+381"],["SK","Slovakia","+421"],["SI","Slovenia","+386"],["ES","Spain","+34"],["SE","Sweden","+46"],["CH","Switzerland","+41"],["TR","Turkey","+90"],["UA","Ukraine","+380"],["GB","United Kingdom","+44"],["US","United States","+1"],["CA","Canada","+1"]];
+  var TZ = {Riga:"LV",Vilnius:"LT",Tallinn:"EE",Helsinki:"FI",Stockholm:"SE",Oslo:"NO",Copenhagen:"DK",Berlin:"DE",Busingen:"DE",Amsterdam:"NL",Brussels:"BE",Luxembourg:"LU",Paris:"FR",Monaco:"MC",Madrid:"ES",Canary:"ES",Lisbon:"PT",Madeira:"PT",London:"GB",Dublin:"IE",Zurich:"CH",Vienna:"AT",Prague:"CZ",Bratislava:"SK",Warsaw:"PL",Budapest:"HU",Ljubljana:"SI",Zagreb:"HR",Belgrade:"RS",Sarajevo:"BA",Podgorica:"ME",Skopje:"MK",Tirane:"AL",Sofia:"BG",Bucharest:"RO",Chisinau:"MD",Kiev:"UA",Kyiv:"UA",Athens:"GR",Rome:"IT",Vaduz:"LI",San_Marino:"SM",Andorra:"AD",Malta:"MT",Istanbul:"TR",Reykjavik:"IS",Nicosia:"CY",Famagusta:"CY"};
+  function guessCountry() {
+    try {
+      var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+      var city = tz.split("/").pop();
+      if (TZ[city]) return TZ[city];
+    } catch (e) {}
+    var langs = navigator.languages || [navigator.language || ""];
+    for (var i = 0; i < langs.length; i++) {
+      var m = /-([A-Z]{2})$/i.exec(langs[i]);
+      if (m && DIAL.some(function (c) { return c[0] === m[1].toUpperCase(); })) return m[1].toUpperCase();
+    }
+    return "LV";
+  }
+  var prefixSel = form.elements.phone_prefix;
+  if (prefixSel) {
+    var guess = guessCountry();
+    prefixSel.innerHTML = DIAL.map(function (c) {
+      return '<option value="' + c[0] + '"' + (c[0] === guess ? " selected" : "") + ">" + c[0] + " " + c[2] + "</option>";
+    }).join("");
+    $$("option", prefixSel).forEach(function (o, i) { o.title = DIAL[i][1]; });
+  }
+  function dialFor(cc) { var c = DIAL.filter(function (x) { return x[0] === cc; })[0]; return c ? c[2] : ""; }
+
   /* ---------- Steps ---------- */
   var steps = $$(".q", form);
   var total = steps.length;
@@ -170,13 +196,13 @@
     if (pos > 0) { show(pos - 1, true); return; }
     if (quick) { setQuick(false); show(0, true); }
   });
-  // Quick path: country + contact only
+  // Quick path: company + email only
   var phoneEl = form.elements.phone;
   function setQuick(on) {
     quick = on;
     order = on ? [total - 1] : steps.map(function (_, i) { return i; });
     form.classList.toggle("is-quick", on);
-    // Quick path asks only for email, company and country
+    // Quick path asks only for company and email
     ["first_name", "last_name", "phone"].forEach(function (n) { form.elements[n].required = !on; });
     if (on) form.elements.wants_sample.checked = false;
     var sb = $("button[type=submit] span", form);
@@ -231,7 +257,13 @@
       if (k === "company_url") return;
       d[k] = d[k] ? d[k] + ", " + v : v;
     });
-    d.use = d.use || ""; d.formats = d.formats || "";
+    d.use = d.use || "";
+    if (d.phone_prefix) {
+      d.phone_country = d.phone_prefix;
+      var ph = String(d.phone || "").trim();
+      if (ph) d.phone = ph.charAt(0) === "+" ? ph : dialFor(d.phone_prefix) + " " + ph.replace(/^0+/, "");
+      delete d.phone_prefix;
+    }
     var s = score(d);
     d.lead_score = String(s);
     d.lead_tier = s >= 75 ? "A" : s >= 45 ? "B" : "C";
@@ -243,7 +275,7 @@
   }
 
   var labels = {
-    path: "Request type", business_type: "Business type", country: "Country", use: "Use", formats: "Formats",
+    path: "Request type", free_first_shipment: "Free first shipment offer", business_type: "Business type", phone_country: "Phone country", use: "Use",
     volume_year1: "First-year volume", turnover: "Turnover", timeline: "Start", first_name: "First name",
     last_name: "Last name", company: "Company", email: "Email", phone: "Phone / WhatsApp", website: "Website",
     wants_sample: "Free sample", launch_offer: "Launch offer", first_visit: "First visit", offer_deadline: "Offer deadline", lead_tier: "Lead tier", lead_score: "Lead score", utm_source: "utm_source",
@@ -261,10 +293,11 @@
     if (!valid(step)) { shake(step); return; }
     if (form.elements.company_url.value) return; // bot
     var d = collect();
-    var subject = "Partner application [" + d.lead_tier + "]: " + d.company + " (" + d.country + ")";
+    var subject = (d.free_first_shipment ? "FREE FIRST SHIPMENT · " : "") + "Partner application [" + d.lead_tier + "]: " + d.company + (d.phone_country ? " (" + d.phone_country + ")" : "");
     var btn = $("button[type=submit]", form);
 
     function success() {
+      submitted = true;
       track("Lead", { content_name: "partner_application", lead_tier: d.lead_tier });
       $("[data-name]").textContent = d.first_name ? ", " + d.first_name : "";
       endScreen("#done-thanks");
@@ -298,14 +331,56 @@
 
   show(0, false);
 
-  /* ---------- Sticky CTA: hide while the form is on screen ---------- */
-  var sticky = $(".sticky-cta");
-  var hero = $(".hero__form");
-  if (sticky && hero && "IntersectionObserver" in window) {
+  /* ---------- WhatsApp button: on phones, hide while the form is on screen ---------- */
+  var wa = $(".wa-float");
+  var heroForm = $(".hero__form");
+  if (wa && heroForm && "IntersectionObserver" in window) {
     var past = false, formVisible = true;
-    var wa = $(".wa-float");
-    var upd = function () { var on = past && !formVisible; sticky.classList.toggle("is-on", on); if (wa) wa.classList.toggle("is-on", on); };
-    new IntersectionObserver(function (en) { formVisible = en[0].isIntersecting; upd(); }).observe(hero);
+    var upd = function () { wa.classList.toggle("is-on", past && !formVisible); };
+    new IntersectionObserver(function (en) { formVisible = en[0].isIntersecting; upd(); }).observe(heroForm);
     window.addEventListener("scroll", function () { past = window.scrollY > window.innerHeight * 0.8; upd(); }, { passive: true });
+  }
+
+  /* ---------- Exit intent: free first shipment ---------- */
+  var exitBox = $("#exit");
+  var submitted = false;
+  function seen() { try { return localStorage.getItem("wm_exit_seen") === "1"; } catch (e) { return false; } }
+  function openExit() {
+    if (!exitBox || seen() || submitted || form.hidden) return;
+    try { localStorage.setItem("wm_exit_seen", "1"); } catch (e) {}
+    exitBox.hidden = false;
+    document.body.style.overflow = "hidden";
+    setTimeout(function () { var b = $("[data-exit-go]", exitBox); if (b) b.focus(); }, 50);
+    track("ExitOfferShown", {}, true);
+  }
+  function closeExit() { if (!exitBox) return; exitBox.hidden = true; document.body.style.overflow = ""; }
+  if (exitBox) {
+    var armedAt = Date.now() + 8000; // never in the first 8 seconds
+    document.addEventListener("mouseout", function (e) {
+      if (!e.relatedTarget && e.clientY <= 0 && Date.now() > armedAt) openExit();
+    });
+    // Phones: a quick scroll back up after reading half the page
+    var lastY = window.scrollY, lastT = Date.now(), maxY = 0;
+    window.addEventListener("scroll", function () {
+      var y = window.scrollY, now = Date.now();
+      maxY = Math.max(maxY, y);
+      var speed = (lastY - y) / Math.max(1, now - lastT);
+      if (window.matchMedia("(pointer:coarse)").matches && now > armedAt &&
+          maxY > document.body.scrollHeight * 0.5 && speed > 1.5) openExit();
+      lastY = y; lastT = now;
+    }, { passive: true });
+    $$("[data-exit-close]", exitBox).forEach(function (b) { b.addEventListener("click", closeExit); });
+    exitBox.addEventListener("click", function (e) { if (e.target === exitBox) closeExit(); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !exitBox.hidden) closeExit(); });
+    $("[data-exit-go]", exitBox).addEventListener("click", function () {
+      closeExit();
+      form.elements.free_first_shipment.value = "yes";
+      $("[data-exit-note]", form).hidden = false;
+      $$(".done").forEach(function (d) { d.hidden = true; });
+      form.hidden = false;
+      setQuick(true); show(0, true);
+      track("ExitOfferAccepted", {}, true);
+      setTimeout(function () { form.elements.company.focus({ preventScroll: true }); }, 400);
+    });
   }
 })();
