@@ -13,9 +13,9 @@
 <meta name="theme-color" content="#1E3B2C">
 <link rel="preload" href="fonts/literata-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/onest-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/b2b.css">
+<link rel="stylesheet" href="css/b2b.css?v=__BUILD__">
 <link rel="icon" href="images/symbol-colour.png">
-<script src="js/config.js"></script>
+<script src="js/config.js?v=__BUILD__"></script>
 </head>
 <body>
 <a class="skip" href="#apply">Skip to the application</a>
@@ -144,8 +144,8 @@
             <legend class="q__title">Where should we send the price list?</legend>
             <p class="q__sub">You get our price list by email within 24 hours on working days.</p>
             <div class="fields">
-              <label class="field"><span>First name</span><input name="first_name" autocomplete="given-name" required></label>
-              <label class="field"><span>Last name</span><input name="last_name" autocomplete="family-name" required></label>
+              <label class="field nq"><span>First name</span><input name="first_name" autocomplete="given-name" required></label>
+              <label class="field nq"><span>Last name</span><input name="last_name" autocomplete="family-name" required></label>
               <label class="field field--full"><span>Company</span><input name="company" autocomplete="organization" required></label>
               <label class="field field--full"><span>Country you sell in</span><select autocomplete="country-name" name="country" required>
                 <option value="">Select a country</option>
@@ -154,10 +154,10 @@
                 <option>Several countries</option>
               </select></label>
               <label class="field field--full"><span>Work email</span><input type="email" name="email" autocomplete="email" inputmode="email" required></label>
-              <label class="field field--full"><span>Phone or WhatsApp</span><input type="tel" name="phone" autocomplete="tel" inputmode="tel" required></label>
-              <label class="field field--full"><span>Website <em>(optional)</em></span><input type="text" name="website" inputmode="url" placeholder="www.yourcompany.com"></label>
+              <label class="field nq field--full"><span>Phone or WhatsApp</span><input type="tel" name="phone" autocomplete="tel" inputmode="tel" required></label>
+              <label class="field nq field--full"><span>Website <em>(optional)</em></span><input type="text" name="website" inputmode="url" placeholder="www.yourcompany.com"></label>
             </div>
-            <label class="tick"><input type="checkbox" name="wants_sample" value="yes" checked><span>Send me a free sample</span></label>
+            <label class="tick nq"><input type="checkbox" name="wants_sample" value="yes" checked><span>Send me a free sample</span></label>
             <label class="tick"><input type="checkbox" name="consent" value="yes" required><span>I agree that Worming uses these details to reply to my application. <a href="https://wormingbio.com/privacy.html" target="_blank" rel="noopener">Privacy policy</a></span></label>
             <p class="offer-note" data-offer>Sending this application reserves your launch offer: 20% off your first 3 orders. It ends in <strong data-countdown>3 days</strong>.</p>
             <p class="q__error" role="alert" hidden></p>
@@ -446,6 +446,6 @@
   </div>
 </div>
 
-<script src="js/app.js" defer></script>
+<script src="js/app.js?v=__BUILD__" defer></script>
 </body>
 </html>

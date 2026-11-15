@@ -300,3 +300,5 @@ button{font:inherit}
 @media (max-width:61.99rem){.wa-float{transform:translateY(180%);transition:transform .45s var(--ease)}.wa-float.is-on{transform:none}}
 
 .q__opt{font-family:var(--sans);font-size:.85rem;font-weight:400;color:var(--ink-soft)}
+.qform.is-quick .nq{display:none}
+.qform.is-quick .fields{grid-template-columns:1fr}

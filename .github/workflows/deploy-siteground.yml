@@ -55,6 +55,10 @@ jobs:
           fi
           ssh-keyscan -p "${SG_PORT:-18765}" "$SG_HOST" >> ~/.ssh/known_hosts 2>/dev/null
 
+      - name: Stamp file versions (cache busting)
+        if: steps.check.outputs.ready == 'true'
+        run: sed -i "s/__BUILD__/${GITHUB_SHA::7}/g" index.html
+
       - name: Upload files
         if: steps.check.outputs.ready == 'true'
         env:

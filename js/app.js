@@ -107,7 +107,7 @@
     nowEl.textContent = p + 1;
     totalEl.textContent = order.length;
     bar.style.width = ((p + 1) / order.length * 100) + "%";
-    backBtn.hidden = p === 0;
+    backBtn.hidden = p === 0 && !quick;
     var ql = $("[data-quick-link]", form); if (ql) ql.hidden = quick || p !== 0;
     if (focus) {
       var r = card.getBoundingClientRect();
@@ -168,6 +168,7 @@
   $$("[data-next]", form).forEach(function (b) { b.addEventListener("click", next); });
   backBtn.addEventListener("click", function () {
     if (pos > 0) { show(pos - 1, true); return; }
+    if (quick) { setQuick(false); show(0, true); }
   });
   // Quick path: country + contact only
   var phoneEl = form.elements.phone;
@@ -175,9 +176,11 @@
     quick = on;
     order = on ? [total - 1] : steps.map(function (_, i) { return i; });
     form.classList.toggle("is-quick", on);
-    phoneEl.required = !on;
-    var lbl = phoneEl.closest(".field").querySelector("span");
-    lbl.innerHTML = on ? "Phone or WhatsApp <em>(optional)</em>" : "Phone or WhatsApp";
+    // Quick path asks only for email, company and country
+    ["first_name", "last_name", "phone"].forEach(function (n) { form.elements[n].required = !on; });
+    if (on) form.elements.wants_sample.checked = false;
+    var sb = $("button[type=submit] span", form);
+    sb.textContent = on ? "Send me the price list" : "Send my application";
   }
   var qb = $("[data-quick]", form);
   if (qb) qb.addEventListener("click", function () { setQuick(true); track("QuickPriceList", {}, true); show(0, true); });
