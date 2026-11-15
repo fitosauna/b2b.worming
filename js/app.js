@@ -340,12 +340,17 @@
 
   show(0, false);
 
-  /* ---------- WhatsApp button: on phones, hide while the form is on screen ---------- */
+  /* ---------- Sticky "Apply" + WhatsApp buttons: on phones, hide while the form is on screen ---------- */
   var wa = $(".wa-float");
   var heroForm = $(".hero__form");
   if (wa && heroForm && "IntersectionObserver" in window) {
     var past = false, formVisible = true;
-    var upd = function () { wa.classList.toggle("is-on", past && !formVisible); };
+    var stickyCta = $(".sticky-cta");
+    var upd = function () {
+      var on = past && !formVisible;
+      wa.classList.toggle("is-on", on);
+      if (stickyCta) stickyCta.classList.toggle("is-on", on);
+    };
     new IntersectionObserver(function (en) { formVisible = en[0].isIntersecting; upd(); }).observe(heroForm);
     window.addEventListener("scroll", function () { past = window.scrollY > window.innerHeight * 0.8; upd(); }, { passive: true });
   }
