@@ -1,6 +1,7 @@
 # Worming B2B partner page (b2b.wormingbio.com)
 
 One-page landing page for Meta (Facebook/Instagram) ads, recruiting distribution partners across Europe.
+On purpose, the page does not mention private label or exclusivity: discuss those on the phone.
 Plain HTML, CSS and JavaScript. No build step.
 
 ## Files

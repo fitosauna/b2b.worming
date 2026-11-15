@@ -158,7 +158,7 @@
   /* ---------- Lead score (A = call first) ---------- */
   function score(d) {
     var s = 0;
-    s += ({ distributor_importer: 30, wholesaler_garden_retail: 30, substrate_producer: 30, private_label_brand: 25, grow_shop_hydro: 20, online_seller: 15, commercial_grower: 10 })[d.business_type] || 0;
+    s += ({ distributor_importer: 30, wholesaler_garden_retail: 30, substrate_producer: 30, packer_retail_supplier: 25, shop_online_seller: 15, commercial_grower: 10 })[d.business_type] || 0;
     s += ({ trial_first: 5, "1_10t": 10, "10_50t": 20, "50_200t": 30, "200t_plus": 35 })[d.volume_year1] || 0;
     s += ({ under_500k: 5, "500k_2m": 12, "2m_10m": 20, "10m_plus": 25, prefer_not: 5 })[d.turnover] || 0;
     s += ({ within_1_month: 10, "1_3_months": 8, next_season: 5, exploring: 0 })[d.timeline] || 0;
@@ -172,7 +172,7 @@
       if (k === "company_url") return;
       d[k] = d[k] ? d[k] + ", " + v : v;
     });
-    d.model = d.model || ""; d.formats = d.formats || "";
+    d.use = d.use || ""; d.formats = d.formats || "";
     var s = score(d);
     d.lead_score = String(s);
     d.lead_tier = s >= 75 ? "A" : s >= 45 ? "B" : "C";
@@ -180,7 +180,7 @@
   }
 
   var labels = {
-    business_type: "Business type", country: "Country", model: "Partnership model", formats: "Formats",
+    business_type: "Business type", country: "Country", use: "Use", formats: "Formats",
     volume_year1: "First-year volume", turnover: "Turnover", timeline: "Start", first_name: "First name",
     last_name: "Last name", company: "Company", email: "Email", phone: "Phone / WhatsApp", website: "Website",
     wants_sample: "Free sample", lead_tier: "Lead tier", lead_score: "Lead score", utm_source: "utm_source",
