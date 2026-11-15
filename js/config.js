@@ -21,11 +21,13 @@ window.WORMING_B2B = {
   videoSrc: "",
   videoPoster: "images/beds.jpg",
 
-  // Launch offer. Everything marked data-offer in index.html hides itself automatically after this date
-  // (end of day, Riga time), so the deadline on the page is real. To change the offer text or date,
-  // also edit the data-offer lines in index.html.
+  // Launch offer. Each visitor gets a personal deadline: offerHours after their first visit (remembered in
+  // their browser). The page shows a live countdown and hides the offer when their time is up.
+  // Each application includes first_visit and offer_deadline, so you can check it before giving the discount.
+  // offerDeadline is the date the whole campaign ends; after it nobody sees the offer.
+  offerHours: 72,
   offerDeadline: "2027-01-31T23:59:59+02:00",
-  offerLabel: "20% off first 3 orders (apply by 31 Jan 2027)",
+  offerLabel: "20% off first 3 orders",
 
   // Where home gardeners are sent after they pick "personal use".
   personalUseUrl: "https://wormingbio.com"

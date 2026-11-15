@@ -10,9 +10,29 @@
   $$("[data-email]").forEach(function (a) { if (C.email) { a.href = "mailto:" + C.email; a.textContent = C.email; } });
   $$("[data-personal]").forEach(function (a) { if (C.personalUseUrl) a.href = C.personalUseUrl; });
 
-  /* ---------- Launch offer: hide after the deadline ---------- */
-  var offerOn = !!C.offerDeadline && Date.now() <= new Date(C.offerDeadline).getTime();
-  if (!offerOn) $$("[data-offer]").forEach(function (el) { el.hidden = true; el.style.display = "none"; });
+  /* ---------- Launch offer: personal deadline per visitor ---------- */
+  var firstVisit = Date.now();
+  try {
+    var fv = parseInt(localStorage.getItem("wm_first_visit"), 10);
+    if (fv && fv <= Date.now()) firstVisit = fv; else localStorage.setItem("wm_first_visit", String(firstVisit));
+  } catch (e) {}
+  var offerEnd = firstVisit + (C.offerHours || 72) * 3600e3;
+  if (C.offerDeadline) offerEnd = Math.min(offerEnd, new Date(C.offerDeadline).getTime());
+  var offerOn = Date.now() <= offerEnd;
+  function hideOffer() { $$("[data-offer]").forEach(function (el) { el.hidden = true; el.style.display = "none"; }); }
+  function left(ms) {
+    var m = Math.max(0, Math.floor(ms / 60000)), d = Math.floor(m / 1440), h = Math.floor((m % 1440) / 60), mm = m % 60;
+    if (d >= 1) return d + (d === 1 ? " day " : " days ") + h + " h";
+    if (h >= 1) return h + " h " + mm + " min";
+    return mm + " min";
+  }
+  function tick() {
+    var ms = offerEnd - Date.now();
+    if (ms <= 0) { offerOn = false; hideOffer(); return; }
+    $$("[data-countdown]").forEach(function (el) { el.textContent = left(ms); });
+    setTimeout(tick, 30000);
+  }
+  if (offerOn) tick(); else hideOffer();
 
   /* ---------- Video ---------- */
   var fig = $("#video");
@@ -185,6 +205,8 @@
     d.lead_score = String(s);
     d.lead_tier = s >= 75 ? "A" : s >= 45 ? "B" : "C";
     if (offerOn && C.offerLabel) d.launch_offer = C.offerLabel;
+    d.first_visit = new Date(firstVisit).toISOString();
+    d.offer_deadline = new Date(offerEnd).toISOString();
     return d;
   }
 
@@ -192,7 +214,7 @@
     business_type: "Business type", country: "Country", use: "Use", formats: "Formats",
     volume_year1: "First-year volume", turnover: "Turnover", timeline: "Start", first_name: "First name",
     last_name: "Last name", company: "Company", email: "Email", phone: "Phone / WhatsApp", website: "Website",
-    wants_sample: "Free sample", launch_offer: "Launch offer", lead_tier: "Lead tier", lead_score: "Lead score", utm_source: "utm_source",
+    wants_sample: "Free sample", launch_offer: "Launch offer", first_visit: "First visit", offer_deadline: "Offer deadline", lead_tier: "Lead tier", lead_score: "Lead score", utm_source: "utm_source",
     utm_medium: "utm_medium", utm_campaign: "utm_campaign", utm_content: "utm_content", fbclid: "fbclid"
   };
   function asText(d) {

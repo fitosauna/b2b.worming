@@ -20,7 +20,11 @@ Plain HTML, CSS and JavaScript. No build step.
 6. **Photos.** The images are the main site's placeholders. Replace with real photos, same file names.
 
 ## Launch offer
-20% off the product price of the first 3 orders (within 12 months, freight excluded, one per company) for partners who apply by 31 January 2027. Every element marked `data-offer` in `index.html` hides itself after `offerDeadline` in `js/config.js`. To change the offer, edit those `data-offer` lines and the deadline. Submissions include a `launch_offer` field while the offer is live.
+20% off the product price of the first 3 orders (within 12 months, freight excluded, one per company).
+Each visitor has a personal deadline: 72 hours after their first visit (`offerHours`), shown as a live countdown.
+When it runs out, the offer disappears for that visitor. Every application includes `first_visit`, `offer_deadline`
+and `launch_offer` (only if they applied in time), so give the discount only to applications that carry the offer line.
+`offerDeadline` ends the whole campaign. Keep this honest: do not reset or extend deadlines for people who missed them.
 
 ## Hosting (GitHub Pages)
 - Settings → Pages → Deploy from a branch → `main` / root. Preview URL: https://fitosauna.github.io/b2b.worming/
