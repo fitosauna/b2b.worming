@@ -312,21 +312,22 @@ button{font:inherit}
 .exit__no{text-align:center;margin:.6rem 0 0!important}
 .exit__x{position:absolute;right:.6rem;top:.4rem;background:none;border:0;font-size:1.8rem;line-height:1;color:var(--ink-soft);cursor:pointer;padding:.3rem .5rem}
 
-/* Product section: image left, text right */
-.prod__split{display:grid;gap:2.25rem;align-items:start}
-.prod__media{display:grid;gap:.6rem}
-.prod__media .compare__item img{aspect-ratio:3/2;width:100%;object-fit:cover}
+/* Product section: text left, batch passport right */
+.prod__split{display:grid;gap:2.25rem;align-items:center}
 .prod__text .lede{margin-top:1.1rem;max-width:44ch}
 .prod__text .plain{margin-top:1.6rem}
-.prod .passport{border-radius:6px;padding:1.4rem 1.3rem;margin-top:2rem}
+.prod .passport{border-radius:6px;padding:1.5rem 1.4rem}
 .npk{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin:.2rem 0 1rem}
 .npk > div{background:#fff;border:1px solid var(--line);border-radius:4px;padding:.8rem .5rem;text-align:center}
 .npk__v{display:block;font-family:var(--serif);font-weight:650;font-size:1.6rem;line-height:1.1;color:var(--forest)}
 .npk__k{display:block;font-size:.72rem;color:var(--ink-soft);margin-top:.25rem;line-height:1.3}
-@media (max-width:61.99rem){.prod__text{order:-1}}
-@media (min-width:62rem){
-  .prod__split{grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
-}
+@media (min-width:62rem){.prod__split{grid-template-columns:1.1fr .9fr;gap:4rem}}
+
+/* Result section */
+.result .compare{margin-top:2.25rem}
+.result .compare__pair{gap:1rem}
+.result .compare__item figcaption{font-size:.85rem}
+@media (max-width:35.99rem){.result .compare__pair{grid-template-columns:1fr}}
 
 /* Exit popup form */
 .exit__form .field{margin:.4rem 0 .2rem}
