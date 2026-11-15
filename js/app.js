@@ -10,6 +10,10 @@
   $$("[data-email]").forEach(function (a) { if (C.email) { a.href = "mailto:" + C.email; a.textContent = C.email; } });
   $$("[data-personal]").forEach(function (a) { if (C.personalUseUrl) a.href = C.personalUseUrl; });
 
+  /* ---------- Launch offer: hide after the deadline ---------- */
+  var offerOn = !!C.offerDeadline && Date.now() <= new Date(C.offerDeadline).getTime();
+  if (!offerOn) $$("[data-offer]").forEach(function (el) { el.hidden = true; el.style.display = "none"; });
+
   /* ---------- Video ---------- */
   var fig = $("#video");
   if (fig && C.videoSrc) {
@@ -161,7 +165,7 @@
   /* ---------- Lead score (A = call first) ---------- */
   function score(d) {
     var s = 0;
-    var bt = { distributor_importer: 30, wholesaler_garden_retail: 30, substrate_producer: 30, packer_retail_supplier: 25, shop_online_seller: 15, commercial_grower: 10 };
+    var bt = { distributor_wholesaler: 30, substrate_producer: 30, retailer_online: 20, commercial_grower: 10 };
     s += String(d.business_type || "").split(", ").reduce(function (m, v) { return Math.max(m, bt[v] || 0); }, 0);
     s += ({ trial_first: 5, "0_1t": 5, "1_10t": 10, "10_50t": 20, "50_200t": 30, "200t_plus": 35 })[d.volume_year1] || 0;
     s += ({ under_500k: 5, "500k_2m": 12, "2m_10m": 20, "10m_plus": 25, prefer_not: 5 })[d.turnover] || 0;
@@ -180,6 +184,7 @@
     var s = score(d);
     d.lead_score = String(s);
     d.lead_tier = s >= 75 ? "A" : s >= 45 ? "B" : "C";
+    if (offerOn && C.offerLabel) d.launch_offer = C.offerLabel;
     return d;
   }
 
@@ -187,7 +192,7 @@
     business_type: "Business type", country: "Country", use: "Use", formats: "Formats",
     volume_year1: "First-year volume", turnover: "Turnover", timeline: "Start", first_name: "First name",
     last_name: "Last name", company: "Company", email: "Email", phone: "Phone / WhatsApp", website: "Website",
-    wants_sample: "Free sample", lead_tier: "Lead tier", lead_score: "Lead score", utm_source: "utm_source",
+    wants_sample: "Free sample", launch_offer: "Launch offer", lead_tier: "Lead tier", lead_score: "Lead score", utm_source: "utm_source",
     utm_medium: "utm_medium", utm_campaign: "utm_campaign", utm_content: "utm_content", fbclid: "fbclid"
   };
   function asText(d) {

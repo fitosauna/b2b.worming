@@ -19,6 +19,9 @@ Plain HTML, CSS and JavaScript. No build step.
 5. **Check these placeholder facts** in `index.html`: lead time "5 to 10 working days", "prepayment for the first order", capacity "up to 100 m³ a month", pack sizes 3/10/20/50 L and 1 m³, heat treatment and PVD permit (all from the zz.lv article about Worming), the founder letter wording.
 6. **Photos.** The images are the main site's placeholders. Replace with real photos, same file names.
 
+## Launch offer
+20% off the product price of the first 3 orders (within 12 months, freight excluded, one per company) for partners who apply by 31 January 2027. Every element marked `data-offer` in `index.html` hides itself after `offerDeadline` in `js/config.js`. To change the offer, edit those `data-offer` lines and the deadline. Submissions include a `launch_offer` field while the offer is live.
+
 ## Hosting (GitHub Pages)
 - Settings → Pages → Deploy from a branch → `main` / root. Preview URL: https://fitosauna.github.io/b2b.worming/
 - When wormingbio.com DNS is ready: add a CNAME record `b2b` → `fitosauna.github.io`, then enter `b2b.wormingbio.com` under Settings → Pages → Custom domain and tick "Enforce HTTPS".
