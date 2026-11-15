@@ -315,14 +315,8 @@ button{font:inherit}
 /* Product section */
 .prod__head{max-width:44rem}
 .prod__head .lede{max-width:46ch}
-.prod__grid{display:grid;gap:1.25rem;margin-top:2.5rem}
+.prod__grid{display:grid;gap:2rem;margin-top:2.5rem}
 @media (min-width:62rem){.prod__grid{grid-template-columns:1.15fr .85fr;gap:1.5rem;align-items:stretch}}
-.facts{display:grid;gap:1rem}
-@media (min-width:36rem){.facts{grid-template-columns:1fr 1fr}}
-.facts li{display:flex;flex-direction:column;gap:.35rem;padding:1.3rem 1.2rem;border:1px solid rgba(244,245,241,.16);border-radius:6px;background:rgba(244,245,241,.04)}
-.facts svg{width:2.3rem;height:2.3rem;padding:.45rem;border-radius:50%;background:var(--sage);fill:none;stroke:var(--forest);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;margin-bottom:.4rem}
-.facts strong{font-family:var(--serif);font-weight:600;font-size:1.2rem;line-height:1.2;color:var(--linen)}
-.facts span{color:var(--on-dark-soft);font-size:.92rem;line-height:1.45}
 .prod .passport{border-radius:6px;padding:1.5rem 1.4rem;display:flex;flex-direction:column}
 .npk{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin:.2rem 0 1rem}
 .npk > div{background:#fff;border:1px solid var(--line);border-radius:4px;padding:.8rem .5rem;text-align:center}
@@ -336,11 +330,14 @@ button{font:inherit}
 .exit__form.shake{animation:shake .35s}
 .exit__legal{margin-top:.7rem!important;text-align:center}
 .exit__done .done__icon{margin-bottom:.8rem}
-.facts{grid-template-columns:1fr 1fr;gap:.6rem}
-@media (max-width:35.99rem){.facts li{padding:1rem .85rem}.facts strong{font-size:1.02rem}.facts span{font-size:.84rem}.facts svg{width:2rem;height:2rem;padding:.38rem}}
-@media (min-width:36rem){.facts{gap:1rem}}
 
 /* Sticky "Apply as partner" button (phones), hidden while the form is on screen */
 .sticky-cta{position:fixed;left:var(--gut);right:calc(var(--gut) + 4rem);bottom:calc(.9rem + env(safe-area-inset-bottom));z-index:40;box-shadow:0 .8rem 2rem -.5rem rgba(0,0,0,.45);transform:translateY(180%);transition:transform .45s var(--ease)}
 .sticky-cta.is-on{transform:none}
 @media (min-width:62rem){.sticky-cta{display:none}}
+
+/* Product facts as plain text */
+.plain{display:grid;gap:1.1rem;align-content:start;font-size:var(--step1);line-height:1.5;color:var(--on-dark-soft)}
+.plain li{position:relative;padding-left:1.6rem;max-width:40ch}
+.plain li::before{content:"";position:absolute;left:0;top:.75em;width:.9rem;height:1.5px;background:var(--sage)}
+.plain strong{color:var(--linen);font-weight:600}
